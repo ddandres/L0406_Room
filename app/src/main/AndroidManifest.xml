@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="labs.sdm.l0406_room">
+    package="labs.dadm.l0406_room">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".activities.MainActivity"
+            android:name="labs.dadm.l0406_room.activities.MainActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>

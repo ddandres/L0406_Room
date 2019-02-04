@@ -1,4 +1,4 @@
-package labs.sdm.l0406_room.databases;
+package labs.dadm.l0406_room.databases;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
@@ -13,9 +13,9 @@ public abstract class ContactsDatabase extends RoomDatabase {
     public synchronized static ContactsDatabase getInstance(Context context) {
         if (contactsDatabase == null) {
             contactsDatabase = Room
-                                .databaseBuilder(context, ContactsDatabase.class, "contact")
-                                .allowMainThreadQueries()
-                                .build();
+                    .databaseBuilder(context, ContactsDatabase.class, "contact")
+                    .allowMainThreadQueries()
+                    .build();
         }
         return contactsDatabase;
     }

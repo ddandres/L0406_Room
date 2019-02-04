@@ -1,4 +1,4 @@
-package labs.sdm.l0406_room.adapters;
+package labs.dadm.l0406_room.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,20 +11,16 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import labs.sdm.l0406_room.R;
-import labs.sdm.l0406_room.databases.Contact;
+import labs.dadm.l0406_room.R;
+import labs.dadm.l0406_room.databases.Contact;
 
 public class ContactsAdapter extends ArrayAdapter {
 
-    List<Contact> list;
-    Context context;
-    int layout;
+    private int layout;
 
     public ContactsAdapter(@NonNull Context context, int resource, @NonNull List<Contact> objects) {
         super(context, resource, objects);
-        this.context = context;
         this.layout = resource;
-        this.list = objects;
     }
 
     @NonNull
@@ -33,12 +29,13 @@ public class ContactsAdapter extends ArrayAdapter {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater =
-                    (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(this.layout, null);
         }
-        ((TextView) view.findViewById(R.id.tvName)).setText(this.list.get(position).getName());
-        ((TextView) view.findViewById(R.id.tvEmail)).setText(this.list.get(position).getEmail());
-        ((TextView) view.findViewById(R.id.tvPhone)).setText(this.list.get(position).getPhone());
+        final Contact contact = (Contact) getItem(position);
+        ((TextView) view.findViewById(R.id.tvName)).setText(contact.getName());
+        ((TextView) view.findViewById(R.id.tvEmail)).setText(contact.getEmail());
+        ((TextView) view.findViewById(R.id.tvPhone)).setText(contact.getPhone());
         return view;
     }
 }

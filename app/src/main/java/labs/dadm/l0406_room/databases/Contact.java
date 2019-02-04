@@ -1,4 +1,4 @@
-package labs.sdm.l0406_room.databases;
+package labs.dadm.l0406_room.databases;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;

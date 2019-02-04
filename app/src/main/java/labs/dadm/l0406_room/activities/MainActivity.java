@@ -3,7 +3,7 @@
  * Copyright (c) 2018. David de Andrés and Juan Carlos Ruiz, DISCA - UPV, Development of apps for mobile devices.
  */
 
-package labs.sdm.l0406_room.activities;
+package labs.dadm.l0406_room.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -20,11 +20,10 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import labs.sdm.l0406_room.R;
-import labs.sdm.l0406_room.adapters.ContactsAdapter;
-import labs.sdm.l0406_room.databases.Contact;
-import labs.sdm.l0406_room.databases.ContactsDatabase;
-
+import labs.dadm.l0406_room.R;
+import labs.dadm.l0406_room.adapters.ContactsAdapter;
+import labs.dadm.l0406_room.databases.Contact;
+import labs.dadm.l0406_room.databases.ContactsDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -162,8 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 // The contact's name is mandatory to create a new contact
                 if (etName.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(this, R.string.name_required, Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     // Get all the information from the data fields
                     final String name = etName.getText().toString();
                     final String email = etEmail.getText().toString();

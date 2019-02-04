@@ -1,4 +1,4 @@
-package labs.sdm.l0406_room;
+package labs.dadm.l0406_room;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("labs.sdm.l0406_room", appContext.getPackageName());
+        assertEquals("labs.dadm.l0406_room", appContext.getPackageName());
     }
 }
