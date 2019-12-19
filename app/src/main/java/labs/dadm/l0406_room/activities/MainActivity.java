@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2018. David de Andrés and Juan Carlos Ruiz, DISCA - UPV, Development of apps for mobile devices.
  */
@@ -8,7 +7,6 @@ package labs.dadm.l0406_room.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
     final static int STATE_NEW = 1;
     final static int STATE_EDIT = 2;
 
-    // Data source for contacts
-    List<Contact> contactList = null;
     // Adapter object linking the data source and the ListView
     ContactsAdapter adapter = null;
 
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     // Current state of edition
     int state = STATE_NONE;
     // Position of the element selected from the list
-    int itemSelected = 0;
+    int selectedPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +77,13 @@ public class MainActivity extends AppCompatActivity {
                 // Enter edition mode
                 enableEdition();
                 // Update EditTexts with contact's data
-                etName.setText(contactList.get(position).getName());
-                etEmail.setText(contactList.get(position).getEmail());
-                etPhone.setText(contactList.get(position).getPhone());
+                final Contact contact = (Contact) adapter.getItem(position);
+                etName.setText(contact.getName());
+                etEmail.setText(contact.getEmail());
+                etPhone.setText(contact.getPhone());
 
                 // Remember the position of the selected object form the list
-                itemSelected = position;
+                selectedPosition = position;
 
                 // Remember the app is in edition mode
                 state = STATE_EDIT;
@@ -94,10 +93,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Get all contacts stored in the database
-        contactList = ContactsDatabase.getInstance(this).contactDao().getContacts();
+        final List<Contact> contactList = ContactsDatabase.getInstance(this).contactDao().getContacts();
 
         // Create the adapter linking the data source to the ListView
         adapter = new ContactsAdapter(this, R.layout.list_item, contactList);
+
         // Set the data behind this ListView
         list.setAdapter(adapter);
     }
@@ -166,21 +166,22 @@ public class MainActivity extends AppCompatActivity {
                     final String name = etName.getText().toString();
                     final String email = etEmail.getText().toString();
                     final String phone = etPhone.getText().toString();
-                    // Create a new object for the List
-                    final Contact contact = new Contact(name, email, phone);
 
                     // If creating a new contact, then add it to the list and database
                     if (state == STATE_NEW) {
-                        contactList.add(contact);
-                        ContactsDatabase.getInstance(this).contactDao().addContact(contact);
+                        // Create a new object for the List
+                        final Contact contact = new Contact(name, email, phone);
+                        contact.setId(ContactsDatabase.getInstance(this).contactDao().addContact(contact));
+                        adapter.add(contact);
                     }
                     // If editing an existing contact, then update the list and database
                     else if (state == STATE_EDIT) {
-                        contactList.set(itemSelected, contact);
+                        final Contact contact = (Contact) adapter.getItem(selectedPosition);
+                        contact.setName(name);
+                        contact.setEmail(email);
+                        contact.setPhone(phone);
                         ContactsDatabase.getInstance(this).contactDao().updateContact(contact);
                     }
-                    // Notify the adapter to update the ListView since its data source has changed
-                    adapter.notifyDataSetChanged();
 
                     // Clear the data fields
                     clearEdition();
@@ -215,13 +216,11 @@ public class MainActivity extends AppCompatActivity {
             // Delete the contact from the database
             case R.id.action_delete:
                 // Get the data of the selected contact
-                final Contact contact = contactList.get(itemSelected);
+                final Contact contact = (Contact) adapter.getItem(selectedPosition);
                 // Delete the contact form the database
                 ContactsDatabase.getInstance(this).contactDao().deleteContact(contact);
                 // Remove the contact from the list
-                contactList.remove(itemSelected);
-                // Notify the adapter to update the ListView since its data source has changed
-                adapter.notifyDataSetChanged();
+                adapter.remove(contact);
                 // Clear the data fields
                 clearEdition();
                 // Stop editing

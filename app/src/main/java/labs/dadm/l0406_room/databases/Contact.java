@@ -1,14 +1,26 @@
+/*
+ * Copyright (c) 2019. David de Andrés and Juan Carlos Ruiz, DISCA - UPV, Development of apps for mobile devices.
+ */
+
 package labs.dadm.l0406_room.databases;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Index;
-import android.arch.persistence.room.PrimaryKey;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
+/*
+    Marks the class as an entity, which will map to a table in the database.
+    Index will speed up SELECT but slow down INSERT and UPDATE.
+    It must define getters and setters for all attributes.
+ */
 @Entity(indices = {@Index("name")})
 public class Contact {
 
+    // Autoincremental primary key
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    @ColumnInfo(name = "_ID")
+    private long id;
 
     private String name;
     private String email;
@@ -20,11 +32,11 @@ public class Contact {
         this.phone = phone;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
