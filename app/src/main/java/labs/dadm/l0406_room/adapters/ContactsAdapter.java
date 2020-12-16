@@ -19,13 +19,13 @@ import java.util.List;
 import labs.dadm.l0406_room.R;
 import labs.dadm.l0406_room.databases.Contact;
 
-public class ContactsAdapter extends ArrayAdapter {
+public class ContactsAdapter extends ArrayAdapter<Contact> {
 
     // Hold reference to the layout
-    private int layout;
+    private final int layout;
 
     // Hold references to View elements
-    private class ContactHolder {
+    private static class ContactHolder {
         TextView tvName;
         TextView tvEmail;
         TextView tvPhone;
@@ -60,12 +60,14 @@ public class ContactsAdapter extends ArrayAdapter {
         }
 
         Contact contact = (Contact) getItem(position);
-        // Retrieve the ViewHolder from the View
-        holder = (ContactHolder) result.getTag();
-        // Populate the View with information from the required position of the data source
-        holder.tvName.setText(contact.getName());
-        holder.tvEmail.setText(contact.getEmail());
-        holder.tvPhone.setText(contact.getPhone());
+        if (contact != null) {
+            // Retrieve the ViewHolder from the View
+            holder = (ContactHolder) result.getTag();
+            // Populate the View with information from the required position of the data source
+            holder.tvName.setText(contact.getName());
+            holder.tvEmail.setText(contact.getEmail());
+            holder.tvPhone.setText(contact.getPhone());
+        }
 
         // Return the View
         return result;

@@ -7,6 +7,8 @@
     <string name="name">Name:</string>
     <string name="email">Email:</string>
     <string name="phone">Phone:</string>
+    <string name="send_button_description">Send</string>
+    <string name="call_button_description">Call</string>
     <string name="hint_name">Enter name</string>
     <string name="hint_email">Enter email address</string>
     <string name="hint_phone">Enter phone number</string>
