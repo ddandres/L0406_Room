@@ -13,33 +13,25 @@ import androidx.room.Update;
 
 import java.util.List;
 
-/*
-    Defines the operation to access the database.
- */
+// Defines the operation to access the database.
 @Dao
 public interface ContactDao {
 
-    /*
-        Returns a list with all Contacts.
-     */
-    @Query("SELECT * FROM contact")
+    String GET_CONTACTS_QUERY = "SELECT * FROM contact";
+
+    // Returns a list with all Contacts.
+    @Query(GET_CONTACTS_QUERY)
     List<Contact> getContacts();
 
-    /*
-        Inserts a new Contact or replace an existing one if their primary keys match.
-     */
+    // Inserts a new Contact or replace an existing one if their primary keys match.
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long addContact(Contact contact);
 
-    /*
-        Updates a Contact with new information.
-     */
+    // Updates a Contact with new information.
     @Update
     void updateContact(Contact contact);
 
-    /*
-        Removes a Contact (identified by its primary key).
-     */
+    // Removes a Contact (identified by its primary key).
     @Delete
     void deleteContact(Contact contact);
 }

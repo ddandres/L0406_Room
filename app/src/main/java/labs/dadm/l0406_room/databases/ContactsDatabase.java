@@ -10,11 +10,9 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-/*
-    Provides access to the database thorugh the associated DAO.
-    It implements a Singleton pattern so just one instance of this class exists at any time.
-    It can prevent schema from being exported by setting exportSchema = false.
- */
+// Provides access to the database thorugh the associated DAO.
+// It implements a Singleton pattern so just one instance of this class exists at any time.
+// It can prevent schema from being exported by setting exportSchema = false.
 @Database(entities = {Contact.class}, version = 1)
 public abstract class ContactsDatabase extends RoomDatabase {
 
@@ -33,5 +31,4 @@ public abstract class ContactsDatabase extends RoomDatabase {
 
     // DAO to access database operations
     public abstract ContactDao contactDao();
-
 }

@@ -9,11 +9,9 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-/*
-    Marks the class as an entity, which will map to a table in the database.
-    Index will speed up SELECT but slow down INSERT and UPDATE.
-    It must define getters and setters for all attributes.
- */
+// Marks the class as an entity, which will map to a table in the database.
+// Index will speed up SELECT but slow down INSERT and UPDATE.
+// It must define getters and setters for all attributes.
 @Entity(indices = {@Index("name")})
 public class Contact {
 

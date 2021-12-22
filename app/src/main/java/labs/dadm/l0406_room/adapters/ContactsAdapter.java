@@ -36,9 +36,7 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
         this.layout = resource;
     }
 
-    /*
-        Creates and populates a View with the information from the required position of the data source.
-    */
+    // Creates and populates a View with the information from the required position of the data source.
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -59,7 +57,7 @@ public class ContactsAdapter extends ArrayAdapter<Contact> {
             result.setTag(holder);
         }
 
-        Contact contact = (Contact) getItem(position);
+        final Contact contact = (Contact) getItem(position);
         if (contact != null) {
             // Retrieve the ViewHolder from the View
             holder = (ContactHolder) result.getTag();
